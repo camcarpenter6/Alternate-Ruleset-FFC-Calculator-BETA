@@ -185,10 +185,10 @@ Altered_Spring_Recession <- function(FlowYear) {
       filter_flow <- smth.gaussian(flow$flow,window = window, alpha = alpha, tails = TRUE)
       #filter_flow <- rollmean(flow$flow,window,fill = NA, align = "right")
       #Calculate the peaks that occur throughout the year
-      peaks <- as.data.frame(findpeaks(filter_flow),threshold = min((0.15*WY_median),15))
+      peaks <- as.data.frame(findpeaks(filter_flow,threshold = min((0.15*WY_median),15)))
       
       #We also want to consider peaks that are flat the limit was set as 30 "flat" points for these
-      peaks_2 <- as.data.frame(findpeaks(filter_flow, peakpat = "[+]{1,}[0]{1,30}[-]{1,}"),threshold = min((0.15*WY_median),15))
+      peaks_2 <- as.data.frame(findpeaks(filter_flow, peakpat = "[+]{1,}[0]{1,30}[-]{1,}",threshold = min((0.15*WY_median),15)))
       
       #combine the two data sets of peaks
       peaks_all <- bind_rows(peaks,peaks_2)
